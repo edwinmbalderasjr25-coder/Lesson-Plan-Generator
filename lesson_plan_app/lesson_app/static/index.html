@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly Lesson Plan Maker (ILAW)</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#5b6675;--line:#d9dee5;--accent:#1f3864;--warn:#8a4b00;--warnbg:#fff4e0;--ok:#1d6b3a}
+  @media (prefers-color-scheme:dark){:root{--bg:#14181e;--card:#1c2229;--ink:#e8ecf1;--mute:#9aa6b4;--line:#33404d;--accent:#8fb3ff;--warn:#ffcf8a;--warnbg:#3a2c12;--ok:#7fd69b}}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,Segoe UI,Arial,sans-serif}
+  main{max-width:980px;margin:0 auto;padding:16px}
+  h1{font-size:22px;margin:8px 0 2px} h2{font-size:17px;margin:0 0 10px;color:var(--accent)} h3{font-size:15px;margin:14px 0 6px}
+  .sub{color:var(--mute);margin:0 0 14px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0}
+  label{display:block;font-weight:600;font-size:13px;margin:10px 0 3px}
+  input[type=text],input[type=date],select,textarea{width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
+  textarea{min-height:90px;resize:vertical} .tall{min-height:200px}
+  .row{display:flex;gap:10px;flex-wrap:wrap} .row>*{flex:1 1 200px}
+  button{background:var(--accent);color:#fff;border:0;border-radius:6px;padding:9px 14px;font:inherit;font-weight:600;cursor:pointer}
+  @media (prefers-color-scheme:dark){button{color:#10151b}}
+  button.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)} button:disabled{opacity:.5;cursor:not-allowed}
+  .day{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0} .day input[type=date]{width:170px} .day .reason{flex:1 1 220px}
+  .domain{margin:10px 0 4px;font-weight:700;font-size:13px;color:var(--mute)}
+  .comp{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;border:1px solid var(--line);border-radius:6px;margin:4px 0;font-weight:400}
+  .comp input{margin-top:4px} .comp small{display:block;color:var(--mute)}
+  .warn{background:var(--warnbg);color:var(--warn);border-radius:8px;padding:10px 12px;margin:8px 0} .warn ul{margin:4px 0 0 18px;padding:0}
+  .hint{color:var(--mute);font-size:12px;margin:2px 0 0} .banner{background:var(--warnbg);color:var(--warn);padding:8px 12px;border-radius:8px;margin:8px 0}
+  .daycard{border:1px solid var(--line);border-radius:8px;padding:10px;margin:10px 0}
+  .status{margin-left:10px;color:var(--mute)} .ok{color:var(--ok)} .hidden{display:none}
+  .check{display:flex;gap:8px;align-items:flex-start;font-weight:400} .check input{margin-top:4px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Weekly Lesson Plan Maker</h1>
+  <p class="sub">DepEd ILAW format &middot; Grade 7 English &middot; AI drafts, you review, Word file downloads</p>
+  <div id="mockBanner" class="banner hidden">Demo mode: no AI is being called. The draft is a stored example, not written for your competencies.</div>
+
+  <section id="profileSec">
+    <h2>1. Your details (saved on this computer)</h2>
+    <div class="row">
+      <div><label>Subject</label><input type="text" id="subject"></div>
+      <div><label>Grade level</label><input type="text" id="grade"></div>
+      <div><label>Sections (comma-separated)</label><input type="text" id="sections" placeholder="Daffodil, Zinnia"></div>
+    </div>
+    <div class="row">
+      <div><label>Teacher name</label><input type="text" id="tName"></div>
+      <div><label>Position</label><input type="text" id="tPos" placeholder="Teacher III"></div>
+    </div>
+    <div class="row">
+      <div><label>Checked by</label><input type="text" id="cName"></div>
+      <div><label>Position</label><input type="text" id="cPos"></div>
+    </div>
+    <div class="row">
+      <div><label>Noted by</label><input type="text" id="nName"></div>
+      <div><label>Position</label><input type="text" id="nPos" placeholder="School head"></div>
+    </div>
+    <p><button class="ghost" id="saveProfile">Save my details</button><span id="profileStatus" class="status"></span></p>
+  </section>
+
+  <section id="weekSec">
+    <h2>2. This week</h2>
+    <div class="row">
+      <div><label>Term</label><select id="term"></select></div>
+      <div><label>Week label</label><input type="text" id="week" placeholder="Week 7"></div>
+      <div><label>First class day</label><input type="date" id="start"></div>
+    </div>
+    <p class="hint">Sessions are 60 minutes each. Pick the first day and press the button, then change any date or mark a day as no class.</p>
+    <p><button class="ghost" id="fill4">Fill 4 consecutive days</button></p>
+    <div id="days"></div>
+    <p><button class="ghost" id="addDay">+ Add a day</button> <span class="hint">(maximum 4 per week)</span></p>
+
+    <label>Lesson title (optional - the AI proposes one if blank)</label><input type="text" id="title">
+    <label>Topic or text focus (optional)</label><textarea id="topic" placeholder="e.g. News and press releases; use a school-event press release as the sample text"></textarea>
+    <div class="row">
+      <div><label>Resources you have (optional)</label><textarea id="resources" placeholder="Projector, printed worksheets, ..."></textarea></div>
+      <div><label>About your learners (optional)</label><textarea id="learners" placeholder="Anything that helps the AI pitch the lesson"></textarea></div>
+    </div>
+    <label>References (optional)</label><input type="text" id="refs" placeholder="Leave blank to use the curriculum guide only">
+
+    <h3>Competencies for this week</h3>
+    <p class="hint">Only Grade 7 competencies for the chosen term appear. Tick everything you will cover this week.</p>
+    <div id="comps"></div>
+    <p><button id="draft">Draft with AI</button><span id="draftStatus" class="status"></span></p>
+  </section>
+
+  <section id="reviewSec" class="hidden">
+    <h2>3. Review and edit</h2>
+    <div id="warnings"></div>
+    <p class="hint">Everything below is a draft. Edit freely. In text boxes: <b>#</b> at the start of a line makes it bold, <b>-</b> makes a bullet, and lines starting with <b>|</b> make a table.</p>
+    <label>Lesson title</label><input type="text" id="rTitle">
+    <label>References</label><input type="text" id="rRefs">
+    <label>Learner context</label><textarea id="rContext"></textarea>
+    <div id="rDays"></div>
+    <label>Learning resources</label><textarea id="rRes"></textarea>
+    <label>Opportunities for integration</label><textarea id="rInt"></textarea>
+    <label>Formative assessment (chosen to match each day's objectives)</label><textarea id="rAssess" class="tall"></textarea>
+    <label>Extended learning opportunities</label><textarea id="rExt"></textarea>
+    <label>Reflections</label><textarea id="rRef"></textarea>
+    <label>Declaration of AI use</label><textarea id="rAI"></textarea>
+    <p class="hint">Check this wording against the school's requirement (DO 3 s.2026 Annex A) before printing.</p>
+    <label class="check"><input type="checkbox" id="approve"><span>I have read this draft, corrected it where needed, and approve it for use.</span></label>
+    <p><button id="generate" disabled>Download Word file</button><span id="genStatus" class="status"></span></p>
+  </section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const el = (tag, props = {}, ...kids) => { const e = Object.assign(document.createElement(tag), props); kids.forEach(k => e.append(k)); return e; };
+let CONFIG = null, PLAN = null;
+
+async function api(path, body) {
+  const r = await fetch(path, body ? {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)} : {});
+  if (!r.ok) { let m = r.statusText; try { m = (await r.json()).error || m; } catch(e) {} throw new Error(m); }
+  return r;
+}
+
+/* ---------- profile ---------- */
+function readProfile() {
+  return {subject: $("subject").value.trim(), grade: $("grade").value.trim(),
+    sections: $("sections").value.split(",").map(s => s.trim()).filter(Boolean),
+    teacher: {name: $("tName").value.trim(), position: $("tPos").value.trim()},
+    checker: {name: $("cName").value.trim(), position: $("cPos").value.trim()},
+    noted_by: {name: $("nName").value.trim(), position: $("nPos").value.trim()}};
+}
+function writeProfile(p) {
+  $("subject").value = p.subject; $("grade").value = p.grade; $("sections").value = (p.sections || []).join(", ");
+  $("tName").value = p.teacher.name; $("tPos").value = p.teacher.position;
+  $("cName").value = p.checker.name; $("cPos").value = p.checker.position;
+  $("nName").value = p.noted_by.name; $("nPos").value = p.noted_by.position;
+}
+$("saveProfile").onclick = async () => {
+  await api("/api/profile", readProfile()); $("profileStatus").textContent = "Saved."; setTimeout(() => $("profileStatus").textContent = "", 2000);
+};
+
+/* ---------- days ---------- */
+function addDay(date = "", noClass = false, reason = "") {
+  if ($("days").children.length >= 4) return;
+  const row = el("div", {className: "day"});
+  const d = el("input", {type: "date", value: date});
+  const cb = el("input", {type: "checkbox", checked: noClass});
+  const why = el("input", {type: "text", className: "reason", placeholder: "Reason (e.g. Periodical Test, holiday)", value: reason});
+  why.classList.toggle("hidden", !noClass);
+  cb.onchange = () => why.classList.toggle("hidden", !cb.checked);
+  const del = el("button", {className: "ghost", textContent: "Remove"});
+  del.onclick = () => { if ($("days").children.length > 1) row.remove(); renumber(); };
+  row.append(el("strong", {className: "dn"}), d, el("label", {className: "check", style: "margin:0"}, cb, "No regular class"), why, del);
+  $("days").append(row); renumber();
+}
+function renumber() { [...$("days").children].forEach((r, i) => r.querySelector(".dn").textContent = "Day " + (i + 1)); }
+function readDays() {
+  return [...$("days").children].map(r => {
+    const [d, cb, why] = [r.querySelector("input[type=date]"), r.querySelector("input[type=checkbox]"), r.querySelector(".reason")];
+    return cb.checked ? {date: d.value, no_class: true, reason: why.value.trim() || "No classes"} : {date: d.value};
+  });
+}
+$("addDay").onclick = () => addDay();
+$("fill4").onclick = () => {
+  if (!$("start").value) { alert("Pick the first class day first."); return; }
+  $("days").innerHTML = "";
+  const base = new Date($("start").value + "T00:00:00");
+  for (let i = 0; i < 4; i++) { const x = new Date(base); x.setDate(base.getDate() + i); addDay(x.toISOString().slice(0, 10)); }
+};
+
+/* ---------- competencies ---------- */
+function renderComps() {
+  const t = CONFIG.terms[$("term").value]; $("comps").innerHTML = "";
+  t.domains.forEach(dm => {
+    $("comps").append(el("div", {className: "domain", textContent: dm.name}));
+    dm.groups.forEach(g => {
+      const cb = el("input", {type: "checkbox", value: g.id});
+      $("comps").append(el("label", {className: "comp"}, cb, el("span", {}, g.stem, ...(g.subs.length ? [el("small", {textContent: g.subs.join("; ")})] : []))));
+    });
+  });
+}
+const pickedGroups = () => [...$("comps").querySelectorAll("input:checked")].map(i => i.value);
+
+/* ---------- draft ---------- */
+$("draft").onclick = async () => {
+  const days = readDays();
+  if (days.some(d => !d.date)) { alert("Please fill in every date."); return; }
+  const inputs = {profile: readProfile(), term: $("term").value, week_label: $("week").value.trim(), minutes_per_session: 60,
+    lesson_title: $("title").value.trim(), topic_notes: $("topic").value.trim(), resources_notes: $("resources").value.trim(),
+    learner_notes: $("learners").value.trim(), references: $("refs").value.trim(), competency_groups: pickedGroups(), days};
+  if (!inputs.profile.teacher.name) { alert("Please fill in your details (section 1) first."); return; }
+  $("draft").disabled = true; $("draftStatus").textContent = "Drafting... this can take a minute.";
+  try {
+    const {plan, warnings} = await (await api("/api/draft", inputs)).json();
+    PLAN = plan; showReview(warnings); $("draftStatus").textContent = "Draft ready - scroll down to review.";
+    $("reviewSec").scrollIntoView({behavior: "smooth"});
+  } catch (e) { $("draftStatus").textContent = ""; alert("Could not draft the plan: " + e.message); }
+  $("draft").disabled = false;
+};
+
+/* ---------- review ---------- */
+function showReview(warnings) {
+  $("reviewSec").classList.remove("hidden"); $("approve").checked = false; $("generate").disabled = true;
+  $("warnings").innerHTML = "";
+  const extra = ["Learner context is a general draft. Please edit it to describe your actual class."];
+  const all = [...warnings, ...extra];
+  $("warnings").append(el("div", {className: "warn"}, "Please check:", el("ul", {}, ...all.map(w => el("li", {textContent: w})))));
+  $("rTitle").value = PLAN.lesson_title; $("rRefs").value = PLAN.references; $("rContext").value = PLAN.learner_context;
+  $("rRes").value = PLAN.learning_resources; $("rInt").value = PLAN.integration; $("rAssess").value = PLAN.formative_assessment;
+  $("rExt").value = PLAN.extended_learning; $("rRef").value = PLAN.reflections; $("rAI").value = PLAN.ai_declaration;
+  $("rDays").innerHTML = "";
+  PLAN.days.forEach((d, i) => {
+    const card = el("div", {className: "daycard"}); card.dataset.i = i;
+    card.append(el("h3", {textContent: `Day ${i + 1} - ${d.date}`}));
+    if (d.no_class) { card.append(el("p", {textContent: "No regular class: " + d.reason})); }
+    else {
+      const f = (label, cls, val, tag = "input") => { const x = el(tag, tag === "input" ? {type: "text", value: val} : {value: val}); x.className = cls; card.append(el("label", {textContent: label}), x); };
+      f("Lesson title for the day", "f-title", d.title);
+      f("Objective a (knowledge)", "f-o0", d.objectives[0]); f("Objective b (skill)", "f-o1", d.objectives[1]); f("Objective c (attitude)", "f-o2", d.objectives[2]);
+      f("Pre-lesson title", "f-pt", d.prelesson_title); f("Pre-lesson", "f-p", d.prelesson, "textarea");
+      f("Flow title", "f-ft", d.flow_title); f("Flow", "f-f", d.flow, "textarea");
+    }
+    $("rDays").append(card);
+  });
+}
+$("approve").onchange = () => $("generate").disabled = !$("approve").checked;
+
+function collectPlan() {
+  const p = JSON.parse(JSON.stringify(PLAN));
+  p.lesson_title = $("rTitle").value; p.references = $("rRefs").value; p.learner_context = $("rContext").value;
+  p.learning_resources = $("rRes").value; p.integration = $("rInt").value; p.formative_assessment = $("rAssess").value;
+  p.extended_learning = $("rExt").value; p.reflections = $("rRef").value; p.ai_declaration = $("rAI").value;
+  [...$("rDays").children].forEach(card => {
+    const d = p.days[+card.dataset.i]; if (d.no_class) return; const q = c => card.querySelector(c).value;
+    Object.assign(d, {title: q(".f-title"), objectives: [q(".f-o0"), q(".f-o1"), q(".f-o2")], prelesson_title: q(".f-pt"),
+      prelesson: q(".f-p"), flow_title: q(".f-ft"), flow: q(".f-f")});
+  });
+  return p;
+}
+$("generate").onclick = async () => {
+  $("generate").disabled = true; $("genStatus").textContent = "Building the Word file...";
+  try {
+    const r = await api("/api/generate", collectPlan());
+    const blob = await r.blob(); const a = el("a", {href: URL.createObjectURL(blob), download: (r.headers.get("Content-Disposition") || "").match(/filename="?([^";]+)/)?.[1] || "Lesson_Plan.docx"});
+    document.body.append(a); a.click(); a.remove(); $("genStatus").textContent = "Downloaded.";
+  } catch (e) { $("genStatus").textContent = ""; alert("Could not build the file: " + e.message); }
+  $("generate").disabled = !$("approve").checked;
+};
+
+/* ---------- start ---------- */
+(async () => {
+  CONFIG = await (await api("/api/config")).json();
+  $("mockBanner").classList.toggle("hidden", !CONFIG.mock);
+  Object.keys(CONFIG.terms).forEach(t => $("term").append(el("option", {value: t, textContent: {T1: "Term 1", T2: "Term 2", T3: "Term 3"}[t] + " - " + CONFIG.terms[t].focus})));
+  $("term").onchange = renderComps; renderComps();
+  writeProfile(await (await api("/api/profile")).json());
+  addDay();
+})();
+</script>
+</body>
+</html>
