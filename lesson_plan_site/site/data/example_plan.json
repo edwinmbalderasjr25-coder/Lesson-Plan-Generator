@@ -1,0 +1,86 @@
+{
+ "term": "T2",
+ "week_label": "Week 7",
+ "minutes_per_session": 60,
+ "profile": {
+  "subject": "English",
+  "grade": 7,
+  "sections": [
+   "Daffodil",
+   "Zinnia"
+  ],
+  "teacher": {
+   "name": "Edwin, Jr. M. Balderas",
+   "position": "Teacher III"
+  },
+  "checker": {
+   "name": "Sheila M. Abadies",
+   "position": "Master Teacher I"
+  },
+  "noted_by": {
+   "name": "Maricel B. Lusica",
+   "position": "School head"
+  }
+ },
+ "lesson_title": "Examining Text Structures for Clarity of Meaning and Purpose: News and Press Releases (Focus: Press Releases)",
+ "references": "Grade 7 English Curriculum Guide, DepEd MATATAG Exemplars, Teacher-Made PPT on Linguistic Features in Informational Texts",
+ "ai_used": true,
+ "ai_declaration": "Artificial intelligence tools were utilized in the preparation of these educational materials. Specifically, AI was used to assist in formulating daily Knowledge, Skills, and Attitude (KSA) objectives, designing formative drills, contextualizing text transformation activities, and aligning lesson plan components with DepEd Region XI curriculum standards.",
+ "competency_groups": [
+  "T2-C02"
+ ],
+ "learner_context": "Grade 7 learners are transitioning from story-driven narrative texts to factual, informative reading materials. While they can locate general information, they often rely on casual language, repetitive simple sentences, and informal expressions in factual writing. By understanding the three pillars of organizational efficiency—Visual Clarity, Logical Flow, and Reduced Effort—and mastering the linguistic toolkit (formal diction, transition devices, and declarative sentence structures), students actively build comprehension, process technical facts, and edit inefficient texts into precise informational writing.",
+ "days": [
+  {
+   "date": "2026-10-26",
+   "title": "Fundamentals of Press Releases",
+   "objectives": [
+    "Identify the features of formal, precise, and objective diction and third-person style in informational texts.",
+    "Distinguish informal/casual statements from objective/formal informational text statements.",
+    "Appreciate the value of objectivity and accuracy in communicating information efficiently."
+   ],
+   "prelesson_title": "Pillars of Efficiency Diagnostic Drill",
+   "prelesson": "Teacher projects two contrasting short passages (informal/choppy vs. formal/efficient). Students identify which text delivers facts faster without confusion. Teacher facilitates a 3-minute discussion on the 3 Pillars of Organizational Efficiency: Visual Clarity, Logical Flow, and Reduced Effort.",
+   "flow_title": "Tool #1 — Diction and Style in Informational Texts",
+   "flow": "# Preliminaries & Direct Instruction:\n- Define Organizational Efficiency: How informational texts deliver knowledge quickly, clearly, and logically so readers locate facts in seconds.\n- Present Tool #1 — Diction & Style:\n- Diction: Intentional choice of words (precise, formal, objective).\n- Style: Objective tone (no personal bias/emotion), direct structure (main idea upfront), and third-person point of view (he, she, it, they).\n# Comparative Analysis (Slide Discussion):\n- Informal: \"Volcanoes are super cool and crazy when they explode and spit hot stuff all over!\"\n- Formal: \"Volcanoes erupt when pressure forces molten rock and gases to rise through crust vents.\"\n# Quick Check / Formative Drill:\n- Students analyze paired sentences and select the option fitting informational texts (e.g., Option A [casual/creepy] vs. Option B [precise 71% Earth's surface / marine ecosystems]).\n- Wrap-up/Reflection: Discuss why objective third-person style builds credibility in informational writing."
+  },
+  {
+   "date": "2026-10-27",
+   "title": "Writing the Press Release Lead and Dateline",
+   "objectives": [
+    "Classify transition devices according to their functional categories (Addition & Order, Cause & Effect, Contrast & Comparison).",
+    "Supply appropriate transition signposts to connect sentences and eliminate choppiness in text passages.",
+    "Show diligence in structuring logical connections between ideas for reader ease."
+   ],
+   "prelesson_title": "Transition Signpost Recall Ticket",
+   "prelesson": "Teacher flashes 3 pairs of isolated sentences without logical connectors. Students orally suggest bridge words (e.g., because, however, therefore) to connect them.",
+   "flow_title": "Tool #2 — Transition Devices for Cohesion and Logical Flow",
+   "flow": "# Direct Instruction:\n- Introduce Transition Devices as \"the cohesion glue\" and traffic signposts that prevent text from feeling choppy and isolated.\n- Category Breakdown:\n- Addition & Order: In addition, Furthermore, Moreover, First, Next, Finally\n- Cause & Effect: Therefore, Consequently, As a result, Because, Thus\n- Contrast & Comparison: However, On the other hand, In contrast, Similarly, Likewise\n\n# Guided Practice:\n- Present fill-in-the-blank prompt: \"Plastic bottles take over 450 years to decompose in oceans. [ ? ], single-use plastics severely threaten sea turtles and marine life.\" (Option A: However, Option B: Consequently, Option C: First).\n- Guide students to identify Consequently as the cause-and-effect bridge.\n# Independent Practice:\n- Distribute a 5-sentence unlinked informational text on environmental issues. Students insert appropriate transition signposts to establish logical flow."
+  },
+  {
+   "date": "2026-10-28",
+   "title": "Writing a Full Press Release",
+   "objectives": [
+    "Recognize simple, compound, and complex declarative sentence structures used to deliver facts directly.",
+    "Transform inefficient, informal, and choppy draft passages into clear, cohesive, and efficiently organized informational texts.",
+    "Demonstrate meticulousness and pride in editing written work for clarity and professional quality."
+   ],
+   "prelesson_title": "Sentence Structure Audit",
+   "prelesson": "Students review a short 4-sentence paragraph on the board and label each sentence as Simple, Compound, or Complex to determine if the text relies on declarative structure.",
+   "flow_title": "Tool #3 — Sentence Structure, Function, and Text Transformation",
+   "flow": "# Direct Instruction:\n- Present Declarative Dominance: Declarative sentences make up 90%+ of informational texts because they state facts directly.\n- Review structures:\n- Simple: 1 Independent Clause (\"Trees produce clean oxygen.\")\n- Compound: 2 Independent Clauses + Coordinating Conjunction (\"Trees produce oxygen, and they absorb carbon.\")\n- Complex: 1 Independent + 1 Dependent Clause (\"Because trees store carbon, they fight climate change.\")\n# Guided Text Transformation:\n- Present Inefficient Text: \"Water is super good. People drink water. People stay healthy. They don't get sick easily.\"\n- Model transformation into Efficient Informational Text: \"Proper hydration is essential for human health. Because clean water supports cellular function, regular intake significantly reduces disease risks.\"\n- Highlight changes in diction (hydration, cellular function) and sentence complexity.\n# Application Writing Task:\n- Students receive an inefficient, choppy draft paragraph and rewrite it using the full Linguistic Toolkit (Formal Diction, Transition Signposts, Varied Declarative Structures)."
+  },
+  {
+   "date": "2026-10-29",
+   "no_class": true,
+   "reason": "Third Periodical Term Examination",
+   "flow": "- Distribution of Term Exam Test Papers and Answer Sheets.\n- Examination administration and invigilation.\n- Collection and security of examination papers.\n- (No daily learning activities or lesson tasks scheduled for this term exam day)."
+  }
+ ],
+ "learning_resources": "- Presentation Deck: Linguistic Features in Informational Texts: Tools for Achieving Organizational Efficiency\n- Worksheets: Text Transformation Activity Sheets & Diction Analysis Drills\n- Formal Theme Notebooks / English Activity Sheets\n- Term Examination Test Papers and Answer Sheets",
+ "integration": "# Science & Environmental Education: Using facts about volcanology, marine life preservation, and hydration physiology as contextual text bases.\n# Media & Information Literacy (MIL): Evaluating text credibility, avoiding hyperbole/emotional bias, and identifying objective informational sources.",
+ "formative_assessment": "# DAY 2: Writing the Press Release Lead and Dateline\n# Activity-Specific Assessment Rubric (12 Points Total)\n| Criteria | 4 Points (Excellent) | 3 Points (Proficient) | 2 Points (Developing) | 1 Point (Beginning) |\n|---|---|---|---|---|\n| Essential Elements & Dateline | Includes accurate Dateline, issuing organization, and all 5 Ws clearly | Missing 1 key element (e.g., dateline formatting or 1 W). | Missing dateline and 2-3 key factual elements. | Fails to include essential facts; missing dateline. |\n| Conciseness & Structure | 1-2 sentences long (under 35 words); direct and informative. | 1-2 sentences, but slightly wordy (36-45 words). | 3 or more sentences long; cluttered structure. | Incomplete thought or unstructured paragraph. |\n| Clarity & Tone | Professional, factual, third-person POV, clear organizational purpose. | Mostly clear; minor slip in tone or POV. | Includes personal feelings, 1st person POV, or heavy bias. | Reads like an informal story or personal note. |",
+ "extended_learning": "- \"Informational Text Audit\" Homework: Find a short informative article from a science textbook, magazine, or reputable website. Highlight 3 formal domain-specific terms, 2 transition signposts, and 1 complex declarative sentence, then paste it in the English notebook.",
+ "reflections": "- Did the 3 Pillars of Organizational Efficiency help learners understand why formal diction and transition signposts are necessary?\n- Were students able to successfully transform choppy, informal drafts into structured declarative sentences on Day 3?\n- What remediation activities are needed for students who still struggle with identifying cause-and-effect transition signposts?",
+ "alignment": []
+}
