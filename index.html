@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly Lesson Plan Maker (ILAW)</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#5b6675;--line:#d9dee5;--accent:#1f3864;--warn:#8a4b00;--warnbg:#fff4e0;--ok:#1d6b3a;--bad:#a12626}
+  @media (prefers-color-scheme:dark){:root{--bg:#14181e;--card:#1c2229;--ink:#e8ecf1;--mute:#9aa6b4;--line:#33404d;--accent:#8fb3ff;--warn:#ffcf8a;--warnbg:#3a2c12;--ok:#7fd69b;--bad:#ff9a9a}}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,Segoe UI,Arial,sans-serif}
+  main{max-width:980px;margin:0 auto;padding:16px}
+  h1{font-size:22px;margin:8px 0 2px} h2{font-size:17px;margin:0 0 10px;color:var(--accent)} h3{font-size:15px;margin:14px 0 6px}
+  .sub{color:var(--mute);margin:0 0 10px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0}
+  label{display:block;font-weight:600;font-size:13px;margin:10px 0 3px}
+  input[type=text],input[type=password],input[type=date],select,textarea{width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
+  textarea{min-height:90px;resize:vertical} .tall{min-height:200px}
+  .row{display:flex;gap:10px;flex-wrap:wrap} .row>*{flex:1 1 200px}
+  button{background:var(--accent);color:#fff;border:0;border-radius:6px;padding:9px 14px;font:inherit;font-weight:600;cursor:pointer}
+  @media (prefers-color-scheme:dark){button{color:#10151b}}
+  button.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)} button:disabled{opacity:.5;cursor:not-allowed}
+  .day{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0} .day input[type=date]{width:170px} .day .reason{flex:1 1 220px}
+  .domain{margin:10px 0 4px;font-weight:700;font-size:13px;color:var(--mute)}
+  .comp{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;border:1px solid var(--line);border-radius:6px;margin:4px 0;font-weight:400}
+  .comp input{margin-top:4px} .comp small{display:block;color:var(--mute)}
+  .warn{background:var(--warnbg);color:var(--warn);border-radius:8px;padding:10px 12px;margin:8px 0} .warn ul{margin:4px 0 0 18px;padding:0}
+  .hint{color:var(--mute);font-size:12px;margin:2px 0 0}
+  .daycard{border:1px solid var(--line);border-radius:8px;padding:10px;margin:10px 0}
+  .status{margin-left:10px;color:var(--mute)} .hidden{display:none}
+  .check{display:flex;gap:8px;align-items:flex-start;font-weight:400} .check input{margin-top:4px}
+  .chip{display:inline-block;font-size:12px;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--mute)}
+  .chip.ready{color:var(--ok);border-color:var(--ok)} .chip.failed{color:var(--bad);border-color:var(--bad)}
+  .notice{border-left:4px solid var(--accent);padding:6px 10px;margin:8px 0;color:var(--mute);font-size:13px}
+  .opt{display:flex;gap:8px;align-items:flex-start;font-weight:400;padding:8px;border:1px solid var(--line);border-radius:6px;margin:6px 0}
+  .opt input{margin-top:4px} .opt small{display:block;color:var(--mute)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Weekly Lesson Plan Maker</h1>
+  <p class="sub">DepEd ILAW format &middot; Grade 7 English &middot; AI drafts, you review, a Word file downloads &middot; <span id="engine" class="chip">Word engine: waiting</span></p>
+  <div class="notice">Free to use. Your details and plans stay in this browser; the Word file is built on your own device. Do not type learners' names or personal information into the notes, because the AI service reads what you send it.</div>
+
+  <section>
+    <h2>1. Your details (saved on this device)</h2>
+    <div class="row">
+      <div><label>Subject</label><input type="text" id="subject"></div>
+      <div><label>Grade level</label><input type="text" id="grade"></div>
+      <div><label>Sections (comma-separated)</label><input type="text" id="sections" placeholder="Daffodil, Zinnia"></div>
+    </div>
+    <div class="row">
+      <div><label>Teacher name</label><input type="text" id="tName"></div>
+      <div><label>Position</label><input type="text" id="tPos" placeholder="Teacher III"></div>
+    </div>
+    <div class="row">
+      <div><label>Checked by</label><input type="text" id="cName"></div>
+      <div><label>Position</label><input type="text" id="cPos"></div>
+    </div>
+    <div class="row">
+      <div><label>Noted by</label><input type="text" id="nName"></div>
+      <div><label>Position</label><input type="text" id="nPos" placeholder="School head"></div>
+    </div>
+    <p><button class="ghost" id="saveProfile">Save my details</button><span id="profileStatus" class="status"></span></p>
+  </section>
+
+  <section>
+    <h2>2. This week</h2>
+    <div class="row">
+      <div><label>Term</label><select id="term"></select></div>
+      <div><label>Week label</label><input type="text" id="week" placeholder="Week 7"></div>
+      <div><label>First class day</label><input type="date" id="start"></div>
+    </div>
+    <p class="hint">Sessions are 60 minutes each. Pick the first day and press the button, then change any date or mark a day as no class.</p>
+    <p><button class="ghost" id="fill4">Fill 4 consecutive days</button></p>
+    <div id="days"></div>
+    <p><button class="ghost" id="addDay">+ Add a day</button> <span class="hint">(maximum 4 per week)</span></p>
+    <label>Lesson title (optional - the AI proposes one if blank)</label><input type="text" id="title">
+    <label>Topic or text focus (optional)</label><textarea id="topic" placeholder="e.g. News and press releases; use a school-event press release as the sample text"></textarea>
+    <div class="row">
+      <div><label>Resources you have (optional)</label><textarea id="resources" placeholder="Projector, printed worksheets, ..."></textarea></div>
+      <div><label>About your learners (optional, no names)</label><textarea id="learners" placeholder="Anything that helps the AI pitch the lesson"></textarea></div>
+    </div>
+    <label>References (optional)</label><input type="text" id="refs" placeholder="Leave blank to use the curriculum guide only">
+    <h3>Competencies for this week</h3>
+    <p class="hint">Only Grade 7 competencies for the chosen term appear. Tick everything you will cover this week.</p>
+    <div id="comps"></div>
+  </section>
+
+  <section>
+    <h2>3. Draft with AI</h2>
+    <label class="opt"><input type="radio" name="method" value="paste" checked><span><b>Paste-in (no key needed)</b><small>The app writes the full request. You paste it into any free AI chat, then paste the answer back here.</small></span></label>
+    <label class="opt"><input type="radio" name="method" value="key"><span><b>Free Google AI Studio key (automatic)</b><small>Get a free key from Google AI Studio, paste it once, and the draft is made inside this page. Free limits apply, and Google may use free-tier requests to improve its products.</small></span></label>
+    <div id="keyBox" class="hidden">
+      <div class="row">
+        <div><label>Your Google AI Studio key</label><input type="password" id="apiKey" autocomplete="off"></div>
+        <div><label>Model name</label><input type="text" id="model"></div>
+      </div>
+      <label class="check"><input type="checkbox" id="rememberKey" checked><span>Remember the key on this device only (do not tick on a shared computer)</span></label>
+      <p><button class="ghost" id="forgetKey">Remove saved key</button><span id="keyStatus" class="status"></span></p>
+      <p class="hint">If Google changes which models are free, type another model name from AI Studio here.</p>
+    </div>
+    <p><button id="draft">Prepare the prompt</button><span id="draftStatus" class="status"></span></p>
+    <div id="pasteBox" class="hidden">
+      <label>Step 1: copy this request and paste it into a free AI chat</label>
+      <textarea id="promptText" class="tall" readonly></textarea>
+      <p><button class="ghost" id="copyPrompt">Copy the request</button><span id="copyStatus" class="status"></span></p>
+      <label>Step 2: paste the AI's answer here (it should be one JSON block)</label>
+      <textarea id="answerText" class="tall"></textarea>
+      <div class="row"><div><label>Which AI did you use? (printed in the AI-use declaration)</label><input type="text" id="toolName" placeholder="e.g. Claude, ChatGPT, Gemini"></div></div>
+      <p><button id="useAnswer">Use this answer</button></p>
+    </div>
+  </section>
+
+  <section id="reviewSec" class="hidden">
+    <h2>4. Review and edit</h2>
+    <div id="warnings"></div>
+    <p class="hint">Everything below is a draft. Edit freely. In text boxes: <b>#</b> at the start of a line makes it bold, <b>-</b> makes a bullet, and lines starting with <b>|</b> make a table.</p>
+    <label>Lesson title</label><input type="text" id="rTitle">
+    <label>References</label><input type="text" id="rRefs">
+    <label>Learner context</label><textarea id="rContext"></textarea>
+    <div id="rDays"></div>
+    <label>Learning resources</label><textarea id="rRes"></textarea>
+    <label>Opportunities for integration</label><textarea id="rInt"></textarea>
+    <label>Formative assessment (chosen to match each day's objectives)</label><textarea id="rAssess" class="tall"></textarea>
+    <label>Extended learning opportunities</label><textarea id="rExt"></textarea>
+    <label>Reflections</label><textarea id="rRef"></textarea>
+    <label>Declaration of AI use</label><textarea id="rAI"></textarea>
+    <p class="hint">Check this wording against the school's requirement (DO 3 s.2026 Annex A) before printing.</p>
+    <label class="check"><input type="checkbox" id="approve"><span>I have read this draft, corrected it where needed, and approve it for use.</span></label>
+    <p><button id="generate" disabled>Download Word file</button><span id="genStatus" class="status"></span></p>
+  </section>
+</main>
+<script src="js/drafter.js"></script>
+<script src="js/docbuilder.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
